@@ -37,3 +37,19 @@ cd ~/universal-agent-kit
 bash install-global-agent-kit.sh
 export PATH="$HOME/.local/bin:$PATH"
 ```
+
+
+Open this project in Antigravity and first message should be:
+
+Read AGENTS.md and ANTIGRAVITY.md first.
+Use the matching skill from .agents/skills.
+
+For bug fixing:
+
+Read AGENTS.md and ANTIGRAVITY.md.
+Use debugging skill.
+
+Here is the error:
+[paste error]
+
+Find root cause, make smallest safe fix, and give verification command.
