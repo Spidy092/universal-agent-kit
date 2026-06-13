@@ -53,3 +53,41 @@ Here is the error:
 [paste error]
 
 Find root cause, make smallest safe fix, and give verification command.
+
+
+## Effective Workflow System
+
+This kit is an in-agent command, mode, and skill router.
+
+- Skills are reusable workflows in `.agents/skills`.
+- Commands are in-agent shortcuts in `.agents/commands`.
+- Modes are session-wide behavior files in `.agents/modes`.
+- The router decides which skills to use from explicit commands or task auto-detection.
+- Adapters make the same system visible to Codex, Claude Code, OpenCode, Pi, Hermes, Gemini, and Antigravity.
+
+Daily examples inside any agent:
+
+```txt
+/bug
+/review
+/fix add login validation
+/ui fix mobile navbar
+/mode strict
+/mode frontend
+/use debugging security
+/docs check latest OpenWA docs
+```
+
+Setup:
+
+```bash
+git clone <repo-url> universal-agent-kit
+cd universal-agent-kit
+bash install-global-agent-kit.sh
+cd /path/to/project
+agent-init
+```
+
+Then open a coding agent in the project and type `/bug`, `/review`, or another workflow command.
+
+See `docs/COMMANDS_AND_MODES.md` for command and mode details.

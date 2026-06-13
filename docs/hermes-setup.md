@@ -1,23 +1,29 @@
 # Hermes Setup
 
-Hermes can use `AGENTS.md` as project context.
+Hermes can use the universal kit through plain project instructions.
 
-Recommended global soul file:
-
-```md
-# ~/.hermes/SOUL.md
-
-You are a senior software engineer.
-Be direct, technical, and concise.
-Prefer evidence, verification, and edge-case awareness.
-Do not expose secrets.
-Do not perform destructive actions without approval.
-```
-
-Optional sync:
+Recommended setup:
 
 ```bash
-HERMES_HOME="${HERMES_HOME:-$HOME/.hermes}"
-mkdir -p "$HERMES_HOME/skills"
-rsync -a .agents/skills/ "$HERMES_HOME/skills/"
+mkdir -p .hermes
+cp ~/.ai-agents/.hermes/SOUL.md .hermes/SOUL.md
 ```
+
+If a project does not use `.hermes`, keep these instructions in `docs/hermes-setup.md` and tell Hermes:
+
+```txt
+Read AGENTS.md and docs/hermes-setup.md first.
+```
+
+Hermes should treat these as workflow commands even if slash commands are not native:
+- `/bug`
+- `/review`
+- `/fix add login validation`
+- `/ui fix mobile navbar`
+- `/security`
+- `/deploy`
+- `/docs check latest OpenWA docs`
+- `/use debugging security`
+- `/mode strict`
+
+Route commands through `.agents/commands`, load workflows from `.agents/skills`, and keep active modes from `.agents/modes` for the session.

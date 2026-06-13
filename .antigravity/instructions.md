@@ -1,41 +1,13 @@
 # Antigravity Project Instructions
 
-Read `AGENTS.md` first.
+Read `AGENTS.md` first. Treat it as the project contract.
 
-Use shared skills from:
+Support `/bug`, `/review`, `/fix`, `/ui`, `/security`, `/deploy`, `/docs`, `/refactor`, `/test`, `/use`, `/mode`, and `/help` as in-agent workflow commands. Route them through `.agents/commands` and the relevant `.agents/skills`.
 
-`.agents/skills/`
+Before editing, give a short plan. After editing, verify with terminal commands, browser checks, or artifacts when possible.
 
-When the task matches a skill, use that skill:
-
-- debugging
-- code-review
-- testing
-- refactor
-- devops-deploy
-- security-audit
-- frontend-ui
-- docs-research
-- rtk-prompting
-- caveman-fast-fix
-
-## Safety Rules
-
-- Do not delete files without asking.
-- Do not reset database without asking.
-- Do not run destructive terminal commands without asking.
-- Do not expose `.env`, tokens, secrets, private keys, or credentials.
-- Make the smallest safe change.
-- Give exact verification commands.
-
-## Output Format
-
-For serious work:
-
-## Summary
-## What I found
-## Fix / Changes
-## Files changed
-## Commands to run
-## Verification
-## Risks / Edge cases
+Safety:
+- Ask before destructive actions.
+- Do not expose secrets, tokens, private keys, or `.env` contents.
+- Do not delete files broadly, reset databases, or force-push without approval.
+- Keep changes minimal and report files changed.

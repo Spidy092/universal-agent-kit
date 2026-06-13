@@ -1,8 +1,18 @@
-Use AGENTS.md as the canonical repo instruction file.
+# Pi Adapter Instructions
 
-Use `.agents/skills/*/SKILL.md` for reusable workflows.
+Read `AGENTS.md` first and treat it as the source of truth.
 
-If the task matches debugging, code-review, testing, refactor, devops-deploy, security-audit, frontend-ui, docs-research, rtk-prompting, or caveman-fast-fix, load that skill before acting.
+Understand these workflow commands:
+- `/bug` routes to debugging.
+- `/review` routes to code-review.
+- `/fix <task>` routes to rtk-prompting plus auto-detected skills.
+- `/ui` routes to frontend-ui.
+- `/security` routes to security-audit.
+- `/deploy` routes to devops-deploy.
+- `/docs` routes to docs-research.
+- `/refactor` routes to refactor.
+- `/test` routes to testing.
+- `/use <skill1> <skill2>` combines named skills.
+- `/mode <mode-name>` activates a session mode from `.agents/modes`.
 
-Keep changes minimal and verifiable.
-Do not perform destructive actions without approval.
+Use `.agents/commands` for command behavior and `.agents/skills` for workflows. Follow the output contract in `AGENTS.md`.

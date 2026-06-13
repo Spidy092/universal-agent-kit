@@ -2,7 +2,7 @@
 
 This file mirrors `AGENTS.md`. Treat `AGENTS.md` as the canonical source of truth.
 
-If a task clearly matches a skill, load the matching `.agents/skills/*/SKILL.md` before acting.
+If a task clearly matches a skill or workflow command, load the matching `.agents/commands/*` and `.agents/skills/*/SKILL.md` files before acting.
 
 
 # Project Agent Rules
@@ -127,6 +127,87 @@ Checks not run:
   - why
   - risks
   - checks run
+
+## Command Router
+
+When the user types a workflow command such as `/bug`, `/review`, `/fix add login validation`, `/mode strict`, or `/use debugging security`, treat it as an in-agent command, not normal prose. Read the matching file in `.agents/commands/` when it exists, load the required skill files from `.agents/skills/`, and follow this project contract.
+
+### Commands
+
+| Command | Aliases | Skills / behavior |
+| --- | --- | --- |
+| `/bug` | `/debug` | Use `debugging`. |
+| `/review` | | Use `code-review`. |
+| `/fix <task>` | | Use `rtk-prompting`; add detected skills from the task. |
+| `/ui` | `/frontend` | Use `frontend-ui`. |
+| `/security` | | Use `security-audit`. |
+| `/deploy` | `/devops` | Use `devops-deploy`. |
+| `/docs` | `/research` | Use `docs-research`. |
+| `/refactor` | | Use `refactor`. |
+| `/test` | | Use `testing`. |
+| `/use <skill1> <skill2>` | | Load and combine the named skills. |
+| `/mode <mode-name>` | | Activate a session mode from `.agents/modes/`. |
+| `/help` | | Show available commands, modes, and examples. |
+
+### Auto-Detection
+
+If the user does not type a command, route by task content:
+
+- error, stacktrace, failing build, exception, logs -> `debugging`
+- review, PR, diff, merge, code quality -> `code-review`
+- UI, responsive, mobile, design, animation, CSS -> `frontend-ui`
+- deploy, server, nginx, pm2, docker, aws, vps, ssl -> `devops-deploy`
+- auth, login, webhook, payment, token, secret, permission -> `security-audit`
+- test, coverage, regression, QA -> `testing`
+- refactor, cleanup, structure -> `refactor`
+- latest docs, API, package docs, integration -> `docs-research`
+
+### Multi-Skill Behavior
+
+- `/use debugging security` means load both `.agents/skills/debugging/SKILL.md` and `.agents/skills/security-audit/SKILL.md` when available.
+- When a task has security-sensitive context, add `security-audit` automatically.
+- When a task changes production or deployment behavior, consider `devops-deploy` and `security-audit`.
+- If skills conflict, follow the safest and most specific instruction.
+
+### Session Modes
+
+- `/mode strict` activates strict mode for the rest of the session.
+- `/mode reset` clears active modes.
+- If multiple modes are active, combine them conservatively.
+- Production, security, and strict rules override fast mode if a conflict exists.
+- Mode definitions live in `.agents/modes/`.
+
+### Router Output Contract
+
+For normal tasks:
+
+```md
+## Summary
+## What I found
+## Fix / Changes
+## Files changed
+## Commands to run
+## Verification
+## Risks / Edge cases
+```
+
+For fast mode:
+
+```md
+## Cause
+## Fix
+## Test
+```
+
+For review:
+
+```md
+## Blocking
+## Important
+## Minor
+## Missing tests
+## Merge readiness
+```
 
 ## Skill Routing
 
