@@ -1,0 +1,12 @@
+name = "debugger"
+description = "Use for root-cause debugging of failures, flaky tests, logs, and regressions."
+model = "gpt-5.5-thinking"
+model_reasoning_effort = "high"
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Read AGENTS.md first.
+Use .agents/skills/debugging/SKILL.md.
+Reproduce or isolate the issue before changing code when practical.
+Make the smallest safe fix.
+Provide verification commands and remaining uncertainty.
+"""
