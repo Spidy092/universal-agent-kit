@@ -29,3 +29,11 @@ chmod +x scripts/*.sh
 ./scripts/sync-agent-context.sh
 ./scripts/validate-agent-files.sh
 ```
+
+```bash
+git clone
+
+cd ~/universal-agent-kit
+bash install-global-agent-kit.sh
+export PATH="$HOME/.local/bin:$PATH"
+```
