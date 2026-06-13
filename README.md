@@ -10,10 +10,20 @@ Do not create separate workflow systems for every coding agent. Use one kit, one
 
 1. Install once per system:
 
+Linux/macOS/Git Bash:
+
 ```bash
 git clone https://github.com/YOUR_USERNAME/universal-agent-kit.git ~/universal-agent-kit
 cd ~/universal-agent-kit
 bash install-global-agent-kit.sh
+```
+
+Windows PowerShell:
+
+```powershell
+git clone https://github.com/YOUR_USERNAME/universal-agent-kit.git "$env:USERPROFILE\universal-agent-kit"
+cd "$env:USERPROFILE\universal-agent-kit"
+powershell -ExecutionPolicy Bypass -File .\install-global-agent-kit.ps1
 ```
 
 2. Run once per project:
@@ -129,6 +139,8 @@ agent-init --force      # Reinitialize (overwrite)
 agent-kit-update /path  # Update global kit
 ```
 
+On Windows, use the same command names after restarting PowerShell. The installer creates `agent-init.cmd` and `agent-kit-update.cmd` wrappers in `%LOCALAPPDATA%\Programs\UniversalAgentKit`.
+
 ### Makefile Targets
 
 ```bash
@@ -141,6 +153,12 @@ make uninstall     # Remove global installation
 make version       # Show version
 ```
 
+Windows PowerShell sync:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\sync-agent-context.ps1 .
+```
+
 ## Project Structure
 
 ```txt
@@ -151,7 +169,8 @@ universal-agent-kit/
 ├── ANTIGRAVITY.md               # Antigravity adapter
 ├── README.md                    # This file
 ├── USAGE_GUIDE.md               # Detailed usage guide
-├── install-global-agent-kit.sh  # Global installer
+├── install-global-agent-kit.sh  # Linux/macOS/Git Bash installer
+├── install-global-agent-kit.ps1 # Windows PowerShell installer
 ├── .agents/
 │   ├── commands/                # In-agent command definitions
 │   ├── modes/                   # Session-wide behavior modes
@@ -232,6 +251,14 @@ EOF
 make test
 bash tests/run-tests.sh
 make validate
+```
+
+PowerShell validation and syntax checks:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\validate-agent-files.ps1
+powershell -NoProfile -Command "[scriptblock]::Create((Get-Content .\install-global-agent-kit.ps1 -Raw)) | Out-Null"
+powershell -NoProfile -Command "[scriptblock]::Create((Get-Content .\scripts\sync-agent-context.ps1 -Raw)) | Out-Null"
 ```
 
 ## Updating

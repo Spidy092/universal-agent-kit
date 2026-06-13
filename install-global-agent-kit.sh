@@ -72,6 +72,48 @@ BIN_DIR="${HOME}/.local/bin"
 INIT_CMD="${BIN_DIR}/agent-init"
 UPDATE_CMD="${BIN_DIR}/agent-kit-update"
 
+copy_kit_files() {
+  local source_dir="$1"
+  local target_dir="$2"
+  local entries=(
+    AGENTS.md
+    ANTIGRAVITY.md
+    CLAUDE.md
+    GEMINI.md
+    README.md
+    USAGE_GUIDE.md
+    VERSION
+    Makefile
+    opencode.jsonc
+    install-global-agent-kit.sh
+    install-global-agent-kit.ps1
+    .agents
+    .antigravity
+    .claude
+    .codex
+    .gemini
+    .opencode
+    .pi
+    docs
+    scripts
+    tests
+    templates
+  )
+
+  mkdir -p "$target_dir"
+
+  if [ -d "$target_dir/.git" ]; then
+    rm -rf "$target_dir/.git" 2>/dev/null || true
+  fi
+
+  for entry in "${entries[@]}"; do
+    if [ -e "$source_dir/$entry" ]; then
+      rm -rf "$target_dir/$entry"
+      cp -R "$source_dir/$entry" "$target_dir/"
+    fi
+  done
+}
+
 # Uninstall mode
 if [ "$UNINSTALL" = true ]; then
   echo "Uninstalling Universal Agent Kit..."
@@ -102,7 +144,7 @@ fi
 mkdir -p "$TARGET" "$BIN_DIR"
 
 # Copy the reusable global kit once.
-cp -R "${CURRENT_DIR}/." "$TARGET/"
+copy_kit_files "$CURRENT_DIR" "$TARGET"
 
 cat > "$INIT_CMD" <<'INIT_EOF'
 #!/usr/bin/env bash
@@ -402,7 +444,50 @@ if [ ! -f "$SOURCE/AGENTS.md" ]; then
 fi
 
 mkdir -p "$KIT"
-cp -R "$SOURCE/." "$KIT/"
+
+copy_kit_files() {
+  local source_dir="$1"
+  local target_dir="$2"
+  local entries=(
+    AGENTS.md
+    ANTIGRAVITY.md
+    CLAUDE.md
+    GEMINI.md
+    README.md
+    USAGE_GUIDE.md
+    VERSION
+    Makefile
+    opencode.jsonc
+    install-global-agent-kit.sh
+    install-global-agent-kit.ps1
+    .agents
+    .antigravity
+    .claude
+    .codex
+    .gemini
+    .opencode
+    .pi
+    docs
+    scripts
+    tests
+    templates
+  )
+
+  mkdir -p "$target_dir"
+
+  if [ -d "$target_dir/.git" ]; then
+    rm -rf "$target_dir/.git" 2>/dev/null || true
+  fi
+
+  for entry in "${entries[@]}"; do
+    if [ -e "$source_dir/$entry" ]; then
+      rm -rf "$target_dir/$entry"
+      cp -R "$source_dir/$entry" "$target_dir/"
+    fi
+  done
+}
+
+copy_kit_files "$SOURCE" "$KIT"
 echo "Updated global agent kit at $KIT"
 UPDATE_EOF
 

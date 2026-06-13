@@ -50,6 +50,7 @@ check "README.md exists" "[ -f '$KIT_DIR/README.md' ]"
 check "USAGE_GUIDE.md exists" "[ -f '$KIT_DIR/USAGE_GUIDE.md' ]"
 check "install script exists" "[ -f '$KIT_DIR/install-global-agent-kit.sh' ]"
 check "install script is executable" "[ -x '$KIT_DIR/install-global-agent-kit.sh' ]"
+check "Windows install script exists" "[ -f '$KIT_DIR/install-global-agent-kit.ps1' ]"
 
 echo ""
 
@@ -117,7 +118,10 @@ echo "📜 Script Tests"
 echo "---------------"
 
 check "sync-agent-context.sh exists" "[ -f '$KIT_DIR/scripts/sync-agent-context.sh' ]"
+check "sync-agent-context.ps1 exists" "[ -f '$KIT_DIR/scripts/sync-agent-context.ps1' ]"
 check "validate-agent-files.sh exists" "[ -f '$KIT_DIR/scripts/validate-agent-files.sh' ]"
+check "validate-agent-files.ps1 exists" "[ -f '$KIT_DIR/scripts/validate-agent-files.ps1' ]"
+check "install-global.ps1 exists" "[ -f '$KIT_DIR/scripts/install-global.ps1' ]"
 
 echo ""
 
@@ -146,6 +150,9 @@ check "Find-skill command exists" "grep -q '/find-skill' '$KIT_DIR/.agents/comma
 check "AGENTS.md routes missing skills" "grep -q 'find-skills' '$KIT_DIR/AGENTS.md'"
 check "Mode files include frontend" "grep -q 'Mode: frontend' '$KIT_DIR/.agents/modes/frontend.md'"
 check "Installer template includes command router" "grep -q 'Command Router' '$KIT_DIR/install-global-agent-kit.sh'"
+check "Windows installer creates agent-init wrapper" "grep -q 'agent-init.cmd' '$KIT_DIR/install-global-agent-kit.ps1'"
+check "Windows sync script links skills" "grep -q 'Install-LinkOrCopy' '$KIT_DIR/scripts/sync-agent-context.ps1'"
+check "Windows validator checks commands" "grep -q 'Checking commands' '$KIT_DIR/scripts/validate-agent-files.ps1'"
 check "No obsolete manual prompt examples" "! grep -R -n -E 'Read AGENTS\.md and ANTIGRAVITY\.md|Use debugging skill|Use frontend-ui skill|paste the prompt|Find root cause, make smallest safe fix|Verify in browser and provide screenshot/artifact|Read AGENTS\.md first\. Use the matching skill' '$KIT_DIR' --exclude='run-tests.sh' --exclude-dir='.git'"
 check "Debugging skill has workflow" "grep -q 'Workflow' '$KIT_DIR/.agents/skills/debugging/SKILL.md'"
 check "Code-review has severity levels" "grep -q 'Blocking' '$KIT_DIR/.agents/skills/code-review/SKILL.md'"

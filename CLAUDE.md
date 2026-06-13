@@ -1,7 +1,3 @@
-# Claude Project Rules
-
-This file mirrors `AGENTS.md`. Treat `AGENTS.md` as the canonical command router and source of truth. Use `/bug`, `/review`, `/fix`, `/ui`, `/security`, `/deploy`, `/docs`, `/refactor`, `/test`, `/use`, `/mode`, and `/help` as workflow commands.
-
 # Project Agent Rules
 
 ## Purpose
@@ -177,6 +173,7 @@ skill instructions from `.agents/skills` and the command definition from
 - `/use <skill1> <skill2>` - combine the named skills for the task.
 - `/mode <mode>` - activate that session mode from `.agents/modes`.
 - `/mode reset` - clear active modes and return to default behavior.
+- `/find-skill <query>`, `/skills find <query>`, or `/skill find <query>` - use `find-skills`.
 - `/help` - show available commands and modes.
 
 ### Auto-Detection
@@ -191,6 +188,7 @@ Use the command router even when the user does not type a slash command:
 - test, coverage, regression, QA, or failing specs -> `testing`
 - refactor, cleanup, structure, or simplification -> `refactor`
 - latest docs, API behavior, library integration, CLI behavior, or official sources -> `docs-research`
+- missing local skill, specialized capability, installable workflow, or "find a skill" -> `find-skills`
 
 ### Conflict Handling
 
@@ -199,6 +197,8 @@ Use the command router even when the user does not type a slash command:
 - Production and deploy tasks should consider both `devops-deploy` and `security-audit`.
 - When `/use` combines skills, apply the highest-safety workflow first, then complete the requested task.
 - If a command and auto-detection disagree, prefer the explicit command unless it would weaken safety.
+- If no local skill covers the task, use `find-skills` to search `skills.sh` or the Skills CLI before inventing a new long workflow.
+- Ask before installing external skills or running network install commands.
 
 ## Skill Routing
 
@@ -216,6 +216,7 @@ Use these skills when the task matches:
 - `database-migration` — safe schema changes, rollback planning, data migrations
 - `performance-optimization` — profiling, bottleneck identification, frontend/backend/database optimization
 - `docs-research` — current docs, official repo/source verification, API/CLI behavior
+- `find-skills` — discover and install external skills when no local skill matches
 - `rtk-prompting` — serious structured prompts for high-quality outputs
 - `caveman-fast-fix` — fast direct bug-fix mode when speed matters
 - `performance` — profiling, optimization, memory leaks, load testing

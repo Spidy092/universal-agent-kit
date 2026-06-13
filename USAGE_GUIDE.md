@@ -29,6 +29,8 @@ Never commit `.env`, API keys, tokens, private keys, client passwords, or servic
 
 ## 2. Install on Any System
 
+Linux/macOS/Git Bash:
+
 ```bash
 git clone https://github.com/YOUR_USERNAME/universal-agent-kit.git ~/universal-agent-kit
 cd ~/universal-agent-kit
@@ -48,10 +50,37 @@ Expected:
 /home/YOUR_USER/.local/bin/agent-init
 ```
 
+Windows PowerShell:
+
+```powershell
+git clone https://github.com/YOUR_USERNAME/universal-agent-kit.git "$env:USERPROFILE\universal-agent-kit"
+cd "$env:USERPROFILE\universal-agent-kit"
+powershell -ExecutionPolicy Bypass -File .\install-global-agent-kit.ps1
+```
+
+Restart PowerShell, then check:
+
+```powershell
+Get-Command agent-init
+```
+
+Expected command location:
+
+```txt
+%LOCALAPPDATA%\Programs\UniversalAgentKit\agent-init.cmd
+```
+
 ## 3. Initialize Any Project
 
 ```bash
 cd /path/to/project
+agent-init
+```
+
+Windows PowerShell:
+
+```powershell
+cd C:\path\to\project
 agent-init
 ```
 
