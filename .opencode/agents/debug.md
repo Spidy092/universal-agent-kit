@@ -7,8 +7,10 @@ permission:
   bash: ask
 ---
 
-Read AGENTS.md first.
-Use `.agents/skills/debugging/SKILL.md`.
-Reproduce/isolate before changing code when practical.
+Use the `AGENTS.md` command router.
+Treat `/bug` and `/debug` as the debugging workflow.
+Load `.agents/commands/bug.md` and the relevant skills before acting.
+
+Reproduce or isolate before changing code when practical.
 Make minimal safe changes.
 Give verification commands.

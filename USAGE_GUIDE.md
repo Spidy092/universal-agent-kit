@@ -1,31 +1,22 @@
-# Universal Agent Kit — Usage Guide
+# Universal Agent Kit Usage Guide
 
-## Mental model
+## Mental Model
 
-Do not copy the full kit into every project manually.
-
-Use this:
+Do not copy a full skill system into every project manually.
 
 ```txt
-GitHub repo          = master copy of your agent kit
-Each system/laptop   = clone once + install once
-Each project         = run agent-init once
-Each agent           = open project + say "Read AGENTS.md first"
+GitHub repo        = master copy of the kit
+Each system        = clone once and install once
+Each project       = run agent-init once
+Each coding agent  = open project and use /bug, /ui, /mode, /use, etc.
 ```
 
-## 1. Push the kit to GitHub
+## 1. Push the Kit to GitHub
 
-Create a private GitHub repo named:
-
-```txt
-universal-agent-kit
-```
-
-From your local kit folder:
+Create a private GitHub repo named `universal-agent-kit`, then push this folder.
 
 ```bash
 cd ~/Downloads/universal-agent-kit
-
 git init
 git add .
 git commit -m "Initial universal agent kit"
@@ -36,11 +27,10 @@ git push -u origin main
 
 Never commit `.env`, API keys, tokens, private keys, client passwords, or service account JSON files.
 
-## 2. Install on any system
+## 2. Install on Any System
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/universal-agent-kit.git ~/universal-agent-kit
-
 cd ~/universal-agent-kit
 bash install-global-agent-kit.sh
 export PATH="$HOME/.local/bin:$PATH"
@@ -58,7 +48,7 @@ Expected:
 /home/YOUR_USER/.local/bin/agent-init
 ```
 
-## 3. Initialize any project
+## 3. Initialize Any Project
 
 ```bash
 cd /path/to/project
@@ -78,322 +68,269 @@ Linked .pi
 Done.
 ```
 
-Optional Antigravity setup:
+## 4. Effective In-Agent Workflow
+
+Open any coding agent:
 
 ```bash
-cat > ANTIGRAVITY.md <<'EOF'
-# Antigravity Project Instructions
-
-Read AGENTS.md first.
-Use shared skills from .agents/skills.
-
-When a task matches a skill, use that skill:
-- debugging
-- code-review
-- testing
-- refactor
-- devops-deploy
-- security-audit
-- frontend-ui
-- docs-research
-- rtk-prompting
-- caveman-fast-fix
-
-Safety:
-- Do not delete files without asking.
-- Do not reset database without asking.
-- Do not run destructive terminal commands without asking.
-- Do not expose .env, tokens, secrets, private keys, or credentials.
-- Make the smallest safe change.
-- Give exact verification commands.
-EOF
-
-mkdir -p .antigravity
-cp ANTIGRAVITY.md .antigravity/instructions.md
-```
-
-## 4. Use with Codex
-
-```bash
-cd /path/to/project
 codex
-```
-
-First message:
-
-```txt
-Read AGENTS.md first.
-Use the matching skill from .agents/skills.
-```
-
-Debugging:
-
-```txt
-Read AGENTS.md.
-Use debugging skill.
-
-Error:
-[paste error]
-
-Find root cause, make smallest safe fix, and give verification commands.
-```
-
-Review:
-
-```txt
-Read AGENTS.md.
-Use code-review skill.
-
-Review the current diff.
-Find blocking issues first.
-```
-
-## 5. Use with Claude Code
-
-```bash
-cd /path/to/project
 claude
-```
-
-First message:
-
-```txt
-Read CLAUDE.md and AGENTS.md first.
-Use the matching skill from .claude/skills or .agents/skills.
-```
-
-Debugging:
-
-```txt
-Use debugging skill.
-Read the error fully.
-Find root cause.
-Make smallest safe fix.
-Give exact command to test.
-
-Error:
-[paste error]
-```
-
-## 6. Use with OpenCode
-
-```bash
-cd /path/to/project
 opencode
-```
-
-First message:
-
-```txt
-Read AGENTS.md first.
-Use the matching skill from .agents/skills.
-```
-
-Serious task:
-
-```txt
-Read AGENTS.md.
-Use rtk-prompting skill.
-
-Role:
-You are a senior full-stack developer.
-
-Task:
-[exact task]
-
-Knowledge:
-[project context]
-
-Rules:
-- Minimal safe change.
-- Verify with commands.
-- Mention edge cases.
-```
-
-## 7. Use with Pi
-
-```bash
-cd /path/to/project
 pi
+hermes
+gemini
+antigravity
 ```
 
-First message:
+Then type workflow commands inside the agent:
 
 ```txt
-Read AGENTS.md.
-Use .agents/skills.
-If task matches a skill, load that skill before acting.
+/bug
+/review
+/fix add login validation
+/ui fix mobile navbar
+/security
+/deploy
+/docs check latest OpenWA docs
+/refactor
+/test
+/mode strict
+/mode frontend
+/mode security
+/mode production
+/use debugging security
+/use frontend-ui testing
+/find-skill whatsapp automation
 ```
 
-Force a skill:
+`AGENTS.md` is the router. It tells the agent how to interpret these commands even when the tool does not have native slash-command support.
+
+## 5. What the Router Uses
+
+| Path | Purpose |
+|------|---------|
+| `AGENTS.md` | Command router and repo-wide rules |
+| `.agents/skills` | Reusable workflows |
+| `.agents/commands` | Command definitions |
+| `.agents/modes` | Session-wide behavior |
+| `CLAUDE.md`, `GEMINI.md`, `ANTIGRAVITY.md`, `.codex`, `.opencode`, `.pi` | Agent adapters |
+
+## 6. Available Skills
+
+| Skill | Use When | Goal |
+|-------|----------|------|
+| `feature-implementation` | New features, user stories | End-to-end feature development |
+| `debugging` | Bugs, errors, crashes | Root-cause analysis and fix |
+| `code-review` | PR review, diff review | Find issues before merge |
+| `testing` | Add tests, fix failing tests | Verify behavior works |
+| `refactor` | Clean up code | Improve without changing behavior |
+| `devops-deploy` | Server, CI/CD, Docker | Deploy and operationalize |
+| `security-audit` | Auth, secrets, permissions | Find and fix security risks |
+| `frontend-ui` | UI components, layout | Build responsive, accessible UI |
+| `docs-research` | API docs, tool behavior | Find accurate information |
+| `rtk-prompting` | Complex tasks, quality output | Structured high-quality prompts |
+| `caveman-fast-fix` | Quick bugs, speed matters | Fast direct fix |
+| `find-skills` | Missing local workflow, external capability | Discover installable skills |
+| `performance-optimization` | Slow code, memory issues | Profile and optimize |
+| `database-migration` | Schema, migrations, queries | Database changes and optimization |
+
+## 7. Commands
+
+### Bug or Debugging
 
 ```txt
-/skill:debugging
+/bug
+
+Error:
 [paste error]
 ```
 
-## 8. Use with Hermes
-
-```bash
-cd /path/to/project
-hermes
+```txt
+/debug build fails after upgrading vite
 ```
 
-First message:
+### Code Review
 
 ```txt
-Read AGENTS.md first.
-Use matching skills from .agents/skills.
+/review current diff against main
 ```
 
-Recommended:
-
-```bash
-mkdir -p ~/.hermes
-cat > ~/.hermes/SOUL.md <<'EOF'
-You are a senior software engineer.
-Be direct, technical, and practical.
-Prefer root-cause fixes, exact commands, and edge-case awareness.
-Do not expose secrets.
-Do not perform destructive actions without approval.
-EOF
-```
-
-## 9. Use with Gemini CLI
-
-Create settings:
-
-```bash
-mkdir -p .gemini
-
-cat > .gemini/settings.json <<'EOF'
-{
-  "context": {
-    "fileName": ["AGENTS.md", "GEMINI.md"]
-  }
-}
-EOF
-```
-
-Run:
-
-```bash
-cd /path/to/project
-gemini
-```
-
-First message:
+### Structured Fix
 
 ```txt
-Read AGENTS.md first.
-Use .agents/skills when relevant.
+/fix add login validation
 ```
 
-## 10. Use with Antigravity
-
-Open the project in Antigravity.
-
-First message:
+### UI and Browser Work
 
 ```txt
-Read AGENTS.md and ANTIGRAVITY.md first.
-Use the matching skill from .agents/skills.
-Before editing, create a short plan.
-Before destructive actions, ask me.
-After changes, create verification artifacts.
+/ui fix mobile navbar
 ```
+
+```txt
+/frontend improve checkout loading states
+```
+
+### Security
+
+```txt
+/security review auth, uploads, and API permissions
+```
+
+### Deployment
+
+```txt
+/deploy check nginx, pm2, ssl, health check, and rollback
+```
+
+### Docs and Research
+
+```txt
+/docs check latest OpenWA docs
+```
+
+### Refactor
+
+```txt
+/refactor simplify dashboard data loading
+```
+
+### Testing
+
+```txt
+/test add regression coverage for user registration
+```
+
+### Combine Skills
+
+```txt
+/use debugging security
+```
+
+```txt
+/use frontend-ui testing
+/find-skill whatsapp automation
+```
+
+### Missing Skill
+
+```txt
+/find-skill whatsapp automation
+```
+
+The router should check local skills first. If none match, use `find-skills` to search `https://skills.sh/` or run `npx skills find [query]` when available. Ask before installing external skills.
+
+### Session Modes
+
+```txt
+/mode strict
+/mode frontend
+/mode security
+/mode production
+/mode reset
+```
+
+## 8. Antigravity
+
+Open the project in Antigravity and type commands in the agent panel.
 
 Debugging:
 
 ```txt
-Read AGENTS.md and ANTIGRAVITY.md.
-Use debugging skill.
+/bug
 
 Error:
 [paste error]
-
-Find root cause, make smallest safe fix, run verification, and show artifacts.
 ```
 
 UI/browser work:
 
 ```txt
-Read AGENTS.md and ANTIGRAVITY.md.
-Use frontend-ui skill.
-
-Task:
-[UI task]
-
-Verify in browser and provide screenshot/artifact.
+/ui fix mobile navbar
 ```
 
-## 11. Daily prompts
-
-Fast fix:
+Frontend session:
 
 ```txt
-Read AGENTS.md.
-Use caveman-fast-fix skill.
-
-Fix this:
-[paste error]
-
-Give cause, fix, and command to test.
+/mode frontend
 ```
 
-Serious implementation:
+Security plus debugging:
 
 ```txt
-Read AGENTS.md.
-Use rtk-prompting skill.
-
-Role:
-You are a senior backend developer.
-
-Task:
-[exact task]
-
-Knowledge:
-[stack, files, logs, constraints]
-
-Rules:
-- Read existing code first.
-- Minimal safe change.
-- No unrelated rewrite.
-- Give commands to verify.
-
-Output:
-- Summary
-- Files changed
-- Commands
-- Verification
-- Edge cases
+/use debugging security
 ```
 
-Deployment:
+Antigravity should create a short plan before editing, verify UI work in browser when possible, provide screenshot/artifact when possible, run verification commands where possible, and ask before destructive actions.
+
+## 9. Goal Tracking Framework
+
+Before starting:
+1. Define the goal.
+2. Define done criteria.
+3. Confirm scope.
+4. Note constraints.
+
+During work:
+- Create a checklist for non-trivial tasks.
+- Track progress.
+- Verify each meaningful step when practical.
+
+Before finishing:
+- Run verification commands.
+- Confirm checklist items are complete.
+- Document remaining risks.
+
+## 10. Skill Chaining
+
+Many tasks require multiple skills:
 
 ```txt
-Read AGENTS.md.
-Use devops-deploy skill.
-
-Server:
-[Ubuntu/AWS/VPS/etc.]
-
-App:
-[Node/PHP/Python/etc.]
-
-Check:
-env, ports, firewall, PM2/systemd/Docker, Nginx, SSL, logs, health check, rollback.
+New feature -> feature-implementation, plus frontend-ui or api-design when needed
+Bug/broken -> debugging, plus testing when useful
+Review code -> code-review
+Optimize -> performance-optimization
+Database work -> database-migration
+Deploy -> devops-deploy, often plus security-audit
+Security concern -> security-audit
+Current docs/API/library behavior -> docs-research
+Missing skill or installable workflow -> find-skills
 ```
 
-## 12. Update kit
+Command examples:
+
+```txt
+/fix add user authentication
+/use frontend-ui testing
+/find-skill whatsapp automation
+/use devops-deploy security-audit
+```
+
+## 11. Fallback Manual Instruction
+
+Use this only when an agent ignores slash commands:
+
+```txt
+Treat /bug, /review, /fix, /ui, /security, /deploy, /docs, /refactor, /test, /use, /mode, and /help as workflow commands using the AGENTS.md command router.
+```
+
+Then continue with short commands like:
+
+```txt
+/bug
+/ui fix mobile navbar
+/mode frontend
+/use debugging security
+```
+
+## 12. Update Kit
 
 Main system:
 
 ```bash
 cd ~/universal-agent-kit
 git add .
-git commit -m "Improve agent skills"
+git commit -m "Improve command router"
 git push
 ```
 
@@ -405,10 +342,10 @@ git pull
 bash install-global-agent-kit.sh
 ```
 
-## Final rule
+## Final Rule
 
 ```txt
 Install once per system.
 Run agent-init once per project.
-Tell every agent: Read AGENTS.md first.
+Inside the agent, use /bug, /ui, /mode, /use, and the rest of the command router.
 ```

@@ -3,7 +3,7 @@
   "agent": {
     "code-reviewer": {
       "description": "Reviews code for correctness, security, maintainability, and missing tests",
-      "prompt": "Read AGENTS.md first. Use .agents/skills/code-review/SKILL.md. Focus on concrete review findings.",
+      "prompt": "Use the AGENTS.md command router. Treat /review as the code-review workflow, focus on concrete findings with severity levels, and do not edit files.",
       "tools": {
         "write": false,
         "edit": false
@@ -11,7 +11,27 @@
     },
     "debugger": {
       "description": "Root-cause debugging agent",
-      "prompt": "Read AGENTS.md first. Use .agents/skills/debugging/SKILL.md. Make the smallest safe fix and verify it."
+      "prompt": "Use the AGENTS.md command router. Treat /bug and /debug as the debugging workflow. Reproduce or isolate first, make the smallest safe fix, and verify it."
+    },
+    "feature-implementer": {
+      "description": "Implements new features end-to-end with tests",
+      "prompt": "Use the AGENTS.md command router. Treat /fix <task> as a structured implementation workflow and auto-add relevant skills, tests, and verification."
+    },
+    "performance-optimizer": {
+      "description": "Profiles and optimizes performance issues",
+      "prompt": "Use the AGENTS.md command router. For performance tasks, measure baseline first, optimize, then verify improvement."
+    },
+    "database-manager": {
+      "description": "Handles database schema, migrations, and query optimization",
+      "prompt": "Use the AGENTS.md command router. For database tasks, create rollback plans, protect production data, and test safely first."
+    },
+    "tester": {
+      "description": "Designs and writes comprehensive tests",
+      "prompt": "Use the AGENTS.md command router. Treat /test as the testing workflow and focus on meaningful regression coverage.",
+      "tools": {
+        "write": false,
+        "edit": false
+      }
     }
   }
 }

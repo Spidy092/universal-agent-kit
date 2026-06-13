@@ -1,11 +1,15 @@
 name = "debugger"
 description = "Use for root-cause debugging of failures, flaky tests, logs, and regressions."
-model = "gpt-5.5-thinking"
+
+# Model can be overridden here; remove to use config.toml default
+# model = "gpt-5.5-thinking"
 model_reasoning_effort = "high"
 sandbox_mode = "workspace-write"
+
 developer_instructions = """
-Read AGENTS.md first.
-Use .agents/skills/debugging/SKILL.md.
+Use the AGENTS.md command router.
+Treat /bug and /debug as the debugging workflow.
+Load .agents/commands/bug.md and the relevant skills before acting.
 Reproduce or isolate the issue before changing code when practical.
 Make the smallest safe fix.
 Provide verification commands and remaining uncertainty.

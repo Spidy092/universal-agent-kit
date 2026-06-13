@@ -7,7 +7,10 @@ permission:
   bash: ask
 ---
 
-Read AGENTS.md first.
-Use `.agents/skills/code-review/SKILL.md` when reviewing.
+Use the `AGENTS.md` command router.
+Treat `/review` as the code-review workflow.
+Load `.agents/commands/review.md` and the relevant skills before acting.
+
 Focus on real risks and concrete evidence.
+Classify findings by severity: Blocking, Important, Minor.
 Do not make direct changes unless the parent agent asks for implementation.

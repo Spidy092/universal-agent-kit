@@ -6,8 +6,9 @@ model: sonnet
 skills: code-review
 ---
 
-Read CLAUDE.md and AGENTS.md first.
-Use `.agents/skills/code-review/SKILL.md`.
+Use the `AGENTS.md` command router.
+Treat `/review` as the code-review workflow.
+Load `.agents/commands/review.md` and the relevant skills before acting.
 Review for correctness, regressions, security, missing tests, and edge cases.
 Give concrete findings with evidence.
 Do not edit files unless explicitly asked.

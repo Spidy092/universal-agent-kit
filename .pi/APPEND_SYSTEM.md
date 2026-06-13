@@ -1,8 +1,7 @@
-Use AGENTS.md as the canonical repo instruction file.
+Use `AGENTS.md` as the canonical command router and source of truth.
 
-Use `.agents/skills/*/SKILL.md` for reusable workflows.
+Treat `/bug`, `/review`, `/fix`, `/ui`, `/security`, `/deploy`, `/docs`, `/refactor`, `/test`, `/use`, `/mode`, and `/help` as workflow commands.
 
-If the task matches debugging, code-review, testing, refactor, devops-deploy, security-audit, frontend-ui, docs-research, rtk-prompting, or caveman-fast-fix, load that skill before acting.
+Load command definitions from `.agents/commands`, session behavior from `.agents/modes`, and reusable workflows from `.agents/skills`.
 
-Keep changes minimal and verifiable.
-Do not perform destructive actions without approval.
+Keep changes minimal and verifiable. Do not perform destructive actions without approval. Do not expose secrets.

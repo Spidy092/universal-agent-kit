@@ -1,3 +1,18 @@
-[agents]
-max_threads = 4
-max_depth = 1
+# Codex Configuration for Universal Agent Kit
+# Customize model, reasoning effort, and sandbox settings here.
+
+# Default model for all agents (override per-agent in agent toml files)
+# Options: gpt-5.5-thinking, gpt-5, gpt-4o, o3-mini, etc.
+default_model = "gpt-5.5-thinking"
+
+# Default reasoning effort: low, medium, high
+default_reasoning_effort = "high"
+
+# Sandbox mode: workspace-write, read-only, none
+default_sandbox_mode = "workspace-write"
+
+# Auto-read AGENTS.md on startup
+auto_read_agents_md = true
+
+# Skills directory (relative to project root)
+skills_dir = ".agents/skills"

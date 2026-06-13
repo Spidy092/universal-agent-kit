@@ -1,10 +1,11 @@
 # How to Use This Kit
 
+Use short in-agent commands after running `agent-init` in a project.
+
 ## For a bug
 
 ```txt
-Read AGENTS.md.
-Use debugging skill.
+/bug
 
 Error:
 [paste error]
@@ -14,55 +15,46 @@ Expected:
 
 Actual:
 [what happened]
-
-Give root cause, fix, files, commands, verification.
 ```
 
 ## For code review
 
 ```txt
-Read AGENTS.md.
-Use code-review skill.
-Review current diff against main.
-Find blocking issues first.
+/review current diff against main
 ```
 
-## For serious task
-
-Use RTK:
+## For a structured fix
 
 ```txt
-Role:
-You are a senior full-stack developer.
-
-Task:
-[exact task]
-
-Knowledge:
-[project context]
-
-Rules:
-- Read AGENTS.md.
-- Use matching skill.
-- Minimal safe change.
-- Verify.
-
-Output:
-- Summary
-- Files changed
-- Commands
-- Verification
+/fix add login validation
 ```
 
-## For fast fix
-
-Use Caveman:
+## For UI work
 
 ```txt
-Fix this.
-Read the error.
-Find root cause.
-Give exact code.
-Give exact command to test.
-Do not over-explain.
+/ui fix mobile navbar
+```
+
+## For security and debugging together
+
+```txt
+/use debugging security
+```
+
+## For session behavior
+
+```txt
+/mode strict
+/mode frontend
+/mode security
+/mode production
+/mode reset
+```
+
+## Fallback
+
+Use this only when an agent ignores slash commands:
+
+```txt
+Treat /bug as debugging workflow using AGENTS.md command router.
 ```

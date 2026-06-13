@@ -1,0 +1,12 @@
+{
+  "context": {
+    "fileName": ["AGENTS.md", "GEMINI.md"]
+  },
+  "skills": {
+    "directory": ".agents/skills"
+  },
+  "safety": {
+    "autoReadAgentsMd": true,
+    "requireConfirmationForDestructive": true
+  }
+}

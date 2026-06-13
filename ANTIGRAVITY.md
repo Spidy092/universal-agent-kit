@@ -1,37 +1,80 @@
 # Antigravity Project Instructions
 
-Read `AGENTS.md` first.
+Use `AGENTS.md` as the command router and source of truth.
 
-Use shared skills from:
+## Primary Workflow
 
-`.agents/skills/`
+Inside the Antigravity agent panel, use in-agent commands:
 
-When the task matches a skill, use that skill:
+```txt
+/bug
 
-- debugging
-- code-review
-- testing
-- refactor
-- devops-deploy
-- security-audit
-- frontend-ui
-- docs-research
-- rtk-prompting
-- caveman-fast-fix
+Error:
+[paste error]
+```
 
-## Safety Rules
+For UI/browser work:
 
-- Do not delete files without asking.
-- Do not reset database without asking.
-- Do not run destructive terminal commands without asking.
+```txt
+/ui fix mobile navbar
+```
+
+For a frontend-focused session:
+
+```txt
+/mode frontend
+```
+
+For security plus debugging:
+
+```txt
+/use debugging security
+```
+
+Other useful commands:
+
+```txt
+/review
+/fix add login validation
+/security
+/deploy
+/docs check latest OpenWA docs
+/refactor
+/test
+/mode strict
+/mode security
+/mode production
+/help
+```
+
+## Required Antigravity Behavior
+
+- Before editing, create a short plan.
+- For UI work, verify in browser if possible.
+- Provide a screenshot or artifact when possible.
+- After code changes, run verification commands where possible.
+- Do not delete files without approval.
+- Do not reset DB without approval.
+- Do not run destructive terminal commands without approval.
+- Do not force push without approval.
 - Do not expose `.env`, tokens, secrets, private keys, or credentials.
 - Make the smallest safe change.
-- Give exact verification commands.
+
+## Fallback
+
+If slash commands are not recognized by Antigravity, type:
+
+```txt
+Treat /bug as debugging workflow using AGENTS.md command router.
+```
+
+Then continue using `/bug`, `/ui`, `/mode frontend`, and `/use debugging security` as the main workflow.
 
 ## Output Format
 
 For serious work:
 
+```md
 ## Summary
 ## What I found
 ## Fix / Changes
@@ -39,3 +82,4 @@ For serious work:
 ## Commands to run
 ## Verification
 ## Risks / Edge cases
+```

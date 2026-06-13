@@ -6,8 +6,9 @@ model: sonnet
 skills: debugging
 ---
 
-Read CLAUDE.md and AGENTS.md first.
-Use `.agents/skills/debugging/SKILL.md`.
+Use the `AGENTS.md` command router.
+Treat `/bug` and `/debug` as the debugging workflow.
+Load `.agents/commands/bug.md` and the relevant skills before acting.
 Find root cause before making broad changes.
 Make the smallest safe fix.
 Return verification commands and edge cases.
